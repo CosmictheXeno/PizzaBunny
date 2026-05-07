@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My website</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<div id="irsevent" style="display:none;">
+    <h2>IRS VISIT</h2>
+    <P>Spam the button to keep your money</P>
+    <p>Timer: <span id="eventTimer">15</span></p>
+    <p>Clicks: <span id="clickCount">0</span></p>
+    <button id="eventButton">CLICK!</button>
+</div>
+
+
+<body>
+    <label id="version">2026.2.3.6 Beta</label>
+        <label id="money">$0</label><br>
+        <label id="MPC"> $1/click </label><br>
+        <label id="MPS">$0/sec</label>
+
+<button id="increase" class="buttons">
+    <img src="Peperonipizza.png" alt="Pepperoni Pizza" id="increase-img">
+</button>
+
+<div id="gameArea" style="position:relative; width:400px; height:400px;">
+    <div id="player" style="position:absolute; width:20px; height:20px; background:red;"></div>
+    <div id="target" style="position:absolute; width:20px; height:20px; background:green;"></div>
+</div>
+
+<div id="patchnote" class="modal">
+    <div class="modalcontent">
+        <h2>Patch Notes v2.3.6</h2>
+        <ul>
+            <li>Shop items now have levels</li>
+        </ul>
+        <button id="closePatchNotes">Close</button>
+    </div>
+</div>
+
+<button id="viewpatchnote">Patch Notes</button>
+
+
+    <button id="open">Open Shop</button>
+
+    <div id="modalcontainer" class="hiddenmodal">
+        <div class="modalcontent">
+            <h2>Shop</h2><br>
+            
+            <div class="shop-item">
+            <button class="pizza-btn" id="cheese"> 
+            <img src="Cheesepizza.png" alt="Cheese Pizza" class="pizza-img"> 
+            </button>
+            <span class="pizza-name" id="chp">Cheese Pizza</span>
+            <span class="pizza-price" id="chpp">$3</span>
+            </div>
+
+            <div class="shop-item">
+            <button class="pizza-btn" id="Pepper">
+            <img src="Pepperpizza.png" alt="Pepper Pizza" class="pizza-img">
+            </button>
+            <span class="pizza-name" id="gpp">Green Pepper Pizza</span>
+            <span class="pizza-price" id="gppp">$6</span>
+            </div>
+
+            <div class="shop-item">
+                <button class="pizza-btn" id="meatball">
+                    <img src="Meatballpizza.png" alt="Meatball Pizza" class="pizza-img">
+                </button>
+                <span class="pizza-name" id="mbp">Meatball Pizza</span>
+                <span class="pizza-price" id="mbpp">$9</span>
+            </div>
+            
+            <div class="shop-item">
+                <button class="pizza-btn" id="pepperonicf">
+                    <img src="pepperonicheesefilled.png" alt="Pepperoni Cheese Filled" class="pizza-img">
+                </button>
+                <span class="pizza-name" id="ppcf">Pepperoni Cheese Filled Pizza</span>
+                <span class="pizza-price" id="pcfp">$29</span>
+            </div>
+
+            <div class="shop-item">
+                <button class="pizza-btn" id="cheesecf">
+                    <img src="Cheesecheesefilled.png" alt="Cheese Cheese Filled" class="pizza-img">
+                </button>
+                <span class="pizza-name" id="ccf">Extra Cheese Pizza</span>
+                <span class="pizza-price" id="ccfp">$49</span>
+            </div>
+
+            <div class="shop-item">
+                <button class="pizza-btn" id="greenpeppercf">
+                    <img src="GPeppercheesefilled.png" alt="Green Pepper Cheese Filled" class="pizza-img">
+                </button>
+                <span class="pizza-name" id="gpcf">Green Pepper Cheese Filled Pizza</span>
+                <span class="pizza-price" id="gpcfp">$69</span>
+            </div>
+            
+            <div class="shop-item">
+                <button class="pizza-btn" id="meatballcf">
+                    <img src="Meatballcheesefilled.png" alt="Meat Ball Cheese Filled" class="pizza-img">
+                </button>
+                <span class="pizza-name" id="mbcf">Meat Ball Cheese Filled Pizza</span>
+                <span class="pizza-price" id="mbcfp">$89</span>
+            </div>
+            
+            <div class="shop-item">
+                <button class="pizza-btn" id="ranch">
+                    <img src="ranch.png" alt="Ranch" class="pizza-img">
+                </button>
+                <span class="pizza-name" id="ranchn">Ranch</span>
+                <span class="pizza-price" id="ranchp">$120</span>
+            </div>
+
+            <div class="shop-item">
+                <button class="pizza-btn" id="mhotsauce">
+                    <img src="mildhotsauce.png" alt="Mild Hot Sauce" class="pizza-img">
+                </button>
+                <span class="pizza-name" id="mhsn">Mild Hot Sauce</span>
+                <span class="pizza-price" id="mhsp">$322</span>
+            </div>
+
+            <div class="shop-item">
+                <button class="pizza-btn" id="marinarasauce">
+                    <img src="marinarasauce.png" alt="Marinara Sauce" class="pizza-img">
+                </button>
+                <span class="pizza-name" id="msn">Marinara Sauce</span>
+                <span class="pizza-price" id="msp">$524</span>
+            </div>
+
+            <div class="shop-item">
+                <button class="pizza-btn" id="carrotcola">
+                    <img src="carrotcola.png" alt="Carrot Cola" class="pizza-img">
+                </button>
+                <span class="pizza-name" id="ccn">Carrot Cola</span>
+                <span class="pizza-price" id="ccp">$699</span>
+            </div>
+
+            <div class="shop-item">
+                <button class="pizza-btn" id="sweetstem">
+                    <img src="sweetstem.png" alt="Sweet Stem" class="pizza-img">
+                </button>
+                <span class="pizza-name" id="ssn">Sweet Stem</span>
+                <span class="pizza-price" id="ssp">$864</span>
+            </div>
+
+            <div class="shop-item">
+                <button class="pizza-btn" id="hillgo">
+                    <img src="hillgo.png" alt="Hill Go" class="pizza-img">
+                </button>
+                <span class="pizza-name" id="hgn">Hill Go</span>
+                <span class="pizza-price" id="hgp">$1K</span>
+            </div>
+
+            <div class="shop-item">
+                <button class="pizza-btn" id="breadstick">
+                    <img src="breadstick.png" alt="Breadstick" class="pizza-img">
+                </button>
+                <span class="pizza-name" id="bdsn">Breadstick</span>
+                <span class="pizza-price" id="bdsp">$6K</span>
+            </div>
+
+            <div class="shop-item">
+                <button class="pizza-btn" id="cheesybread">
+                    <img src="cheesebread.png" alt="cheese bread" class="pizza-img">
+                </button>
+                <span class="pizza-name" id="cbn">Cheese Bread</span>
+                <span class="pizza-price" id="cbp">$11.1K</span>
+            </div>
+
+            <div class="shop-item">
+                <button class="pizza-btn" id="garlicbread">
+                    <img src="garlicbread.png" alt="Garlic Bread" class="pizza-img">
+                </button>
+                <span class="pizza-name" id="gbn">Garlic Bread</span>
+                <span class="pizza-price" id="gbp">$61.1K</span>
+            </div>
+
+            <div class="shop-item">
+                <button class="pizza-btn" id="cheesefilledbread">
+                    <img src="cheesefilledbread.png" alt="Cheese Filled Bread" class="pizza-img">
+                </button>
+                <span class="pizza-name" id="cfbn">Cheese Filled Bread</span>
+                <span class="pizza-price" id="cfbp">$71.1K</span>
+            </div>
+
+            <div class="shop-item">
+                <button class="pizza-btn" id="cheesefilledstick">
+                    <img src="cheesefilledcheesebread.png" alt="Cheese Filled Stick" class="pizza-img">
+                </button>
+                <span class="pizza-name" id="cfbsn">Cheese Filled Bread Stick</span>
+                <span class="pizza-price" id="cfbsp">$81.1K</span>
+            </div>
+
+            <div class="shop-item">
+                <button class="pizza-btn" id="cheesefilledgarlicstix">
+                    <img src="cheesefilledgarlicbread.png" alt="Cheese Filled Garlic Stick" class="pizza-img">
+                </button>
+                <span class="pizza-name" id="cfgbn">Cheese Filled Garlic Stick</span>
+                <span class="pizza-price" id="cfgbp">$91.2K</span>
+            </div>
+
+            <div class="shop-item">
+                <button class="pizza-btn" id="bunnytail">
+                    <img src="cinnamontail.png" alt="Cinnamon Tail" class="pizza-img">
+                </button>
+                <span class="pizza-name" id="ctn">Cinnabun Tail</span>
+                <span class="pizza-price" id="ctp">$132.1K</span>
+            </div>
+
+            <div class="shop-item">
+                <button class="pizza-btn" id="cfcinnamontail">
+                    <img src="cfcinnamontail.png" alt="Creame Filled Cinnamon Tail" class="pizza-img">
+                </button>
+                <span class="pizza-name" id="cfctn">Creme Filled Cinnabun Tail</span>
+                <span class="pizza-price" id="cfctp">$632.1K</span>
+            </div> 
+
+            <div class="shop-item">
+                <button class="pizza-btn" id="brownie">
+                    <img src="brownie.png" alt="brownie" class="pizza-img">
+                </button>
+                <span class="pizza-name" id="brownien">Brownie</span>
+                <span class="pizza-price" id="browniep">$884.7K</span>
+            </div>
+
+            <div class="shop-item">
+                <button class="pizza-btn" id="candybrownie">
+                    <img src="candybrownie.png" alt="Candy Brownie" class="pizza-img">
+                </button>
+                <span class="pizza-name" id="candybn">Candy Brownie</span>
+                <span class="pizza-price" id="candybp">$1.1M</span>
+            </div>
+
+
+
+        </div>
+
+        
+
+
+
+<div id="chasegame" style="display:none; position:relative; width:400px; height:300; background:#222;">
+
+<div id="player"  style="position:absolute; width:40px; background:blue;"></div>
+
+<div id="target" style="position:absolute; width:40px; height:40px; background:red;"></div>
+
+<p style="color:white;">Time: <span id="chaseTimer">10</span></p>
+</div>
+    <script src="index.js"></script>
+</body>
+</html>
