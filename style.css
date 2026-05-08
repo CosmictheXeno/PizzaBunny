@@ -1,5 +1,10 @@
 Body{
+    margin: 0;
     background-color: rgba(166, 141, 224, 0.884);
+    background-image: url("glittor.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 #irsevent {
@@ -12,6 +17,12 @@ Body{
     padding: 20px;
     z-index: 1000;
     border: 2px solid red;
+}
+
+#reset {
+    position: fixed;
+    bottom: 850px;
+    right: 10px;
 }
 
 #money{
@@ -72,14 +83,6 @@ Body{
     z-index: 1000;
     color:rgba(82, 24, 90, 0.774);
     background-color:rgba(106, 152, 236, 0.856);
-}
-
-#target {
-    display: none;
-}
-
-#player {
-    display: none;
 }
 
 #open {
@@ -154,12 +157,6 @@ Body{
 }
 
 .pizza-price{
-    margin-left: auto;
-    font-size: 1.5;
-    font-family: "EB Garamond", serif;
-}
-
-.pizza-lvl{
     margin-left: auto;
     font-size: 1.5;
     font-family: "EB Garamond", serif;

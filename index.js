@@ -1,15 +1,4 @@
-
-let randomEventCooldown = false;
 let gamePaused = false;
-let eventActive = false;
-
-let chaseActive = false;
-
-let targetX = 0;
-let targetY = 0;
-
-let playerX = 0;
-let playerY = 0;
 
 const increaseButton = document.getElementById("increase");
 const countLabel = document.getElementById("money");
@@ -17,7 +6,7 @@ const pizzaShop = document.getElementById("PizzaShop");
 const moneyperClickLabel = document.getElementById("MPC");
 const autoIncomeLabel = document.getElementById('MPS');
 
-const currentVersion = "2.3.6";
+const currentVersion = "2.3.7";
 
 function saveGame(data) {
     localStorage.getItem("save", JSON.stringify({
@@ -36,7 +25,7 @@ window.onload = function () {
 document.getElementById("closePatchNotes").onclick = function () {
     document.getElementById("patchnote").style.display = "none";
 
-    localStorage.setItem("seenPatchNotes", "2.3.6");
+    localStorage.setItem("seenPatchNotes", "2.3.7");
 }
 
 const pn = document.getElementById("patchnote");
@@ -141,51 +130,57 @@ const cfgsBtn = document.getElementById('cheesefilledgarlicstix')
 const cfgsprice = document.getElementById('cfgbp')
 const cfgsname = document.getElementById('cfgbn')
 
+document.addEventListener("click", function(event) {
 
-
-document.addEventListener("keydown", (e) => {
-    if (!chaseActive) return;
-
-    switch (e.key) {
-        case "ArrowUp":
-            chaseGame.movePlayer(0, -1);
-            break;
-        case "ArrowDown":
-            chaseGame.movePlayer(0, 1);
-            break;
-        case "ArrowLeft":
-            chaseGame.movePlayer(-1, 0);
-            break;
-        case "ArrowRight":
-            chaseGame.movePlayer(1, 0);
-            break;
+    if (event.target.closest("button")) {
+        return;
     }
+
+    if (event.target.closest(".modalcontent")) {
+        return;
+    }
+
+    count += click;
+
+    updateDisplay();
 });
 
-function endChaseEvent() {
-    gamePaused = false;
+const reset =
+document.getElementById("reset");
 
-    chaseActive = false;
+function fullReset() {
 
-    settimeout( () => {
-        randomEventCooldown = false;
-    }, 15000);
+    const confirmed = confirm(
+        "This will reset EVERYTHING are you sure?"
+    );
+
+    if (!confirmed) return;
+
+    count = 0;
+    click = 1;
+    autoIncome = 0;
+
+    for (const upgrade in upgrades) {
+        upgrades[upgrade].level = 0;
+
+        upgrades[upgrade].price =
+        upgrades[upgrade].baseName;
+    }
+
+    updateDisplay();
+
+    updateUpgradeLabels();
+
+    saveGame();
+
+    location.reload();
 }
 
-function triggerChaseEvent() {
-    randomEventCooldown = true;
-    gamePaused = true;
 
-    chaseActive = true;
-
-    targetX = Math.random() * 300;
-    targetY = Math.random() * 300;
-
-    playerX = 150;
-    playerY = 150;
-
-    chaseGame.start();
-}
+reset.addEventListener(
+    "click",
+    fullReset
+);
 
 function updateDisplay() {
     document.getElementById("MPC").innerText = "$" + formatMoney(click) + "/click";
@@ -210,6 +205,77 @@ function formatMoney(amount) {
     return Math.floor(amount);
 }
 
+function updateUpgradeLabels() {
+    chsprice.textContent = "$" + formatMoney(upgrades.Cheese.price);
+    chsname.textContent = "Cheese Lv. " + upgrades.Cheese.level;
+
+    gpprice.textContent = "$" + formatMoney(upgrades.gp.price);
+    gpname.textContent = "Green Pepper Pizza Lv. " + upgrades.gp.level;
+
+    mbprice.textContent = "$" + formatMoney(upgrades.mb.price);
+    mbname.textContent = "Meatball Pizza Lv. " + upgrades.mb.level;
+
+    pcfprice.textContent = "$" + formatMoney(upgrades.pcf.price);
+    pcfname.textContent = "Pepperoni Cheese Filled Pizza Lv. " + upgrades.pcf.level;
+
+    ccfprice.textContent = "$" + formatMoney(upgrades.ccf.price);
+    ccfname.textContent = "Extra Cheese Pizza Lv. " + upgrades.ccf.level;
+
+    gpcfprice.textContent = "$" + formatMoney(upgrades.gpcf.price);
+    gpcfname.textContent = "Green Pepper Cheese Filled Pizza Lv. " + upgrades.gpcf.level;
+
+    mbcfprice.textContent = "$" + formatMoney(upgrades.mbcf.price);
+    mbcfname.textContent = "Meatball Cheese Filled Pizza Lv. " + upgrades.mbcf.level;
+
+    ranchprice.textContent = "$" + formatMoney(upgrades.ranch.price);
+    ranchname.textContent = "Ranch Lv. " + upgrades.ranch.level;
+    
+    mhsprice.textContent = "$" + formatMoney(upgrades.mhs.price);
+    mhsname.textContent = "Mild Hot Sauce Lv. " + upgrades.mhs.level;
+
+    msprice.textContent = "$" + formatMoney(upgrades.ms.price);
+    msname.textContent = "Marinara Sauce Lv. " + upgrades.ms.level;
+
+    ccprice.textContent = "$" + formatMoney(upgrades.cc.price);
+    ccname.textContent = "Carrot Cola Lv. " + upgrades.cc.level;
+
+    ssprice.textContent = "$" + formatMoney(upgrades.ss.price);
+    ssname.textContent = "Sweet Stem Lv. " + upgrades.ss.level;
+
+    hgprice.textContent = "$" + formatMoney(upgrades.hg.price);
+    hgname.textContent = "Hill Go Lv. " + upgrades.hg.level;
+
+    bdsprice.textContent = "$" + formatMoney(upgrades.bds.price);
+    bdsname.textContent = "Breadstick Lv. " + upgrades.bds.level;
+
+    cbprice.textContent = "$" + formatMoney(upgrades.cb.price);
+    cbname.textContent = "Cheese Bread Lv. " + upgrades.cb.level;
+    
+    gbprice.textContent = "$" + formatMoney(upgrades.gb.price);
+    gbname.textContent = "Garlic Bread Lv. " + upgrades.gb.level;
+
+    cfbprice.textContent = "$" + formatMoney(upgrades.cfb.price);
+    cfbname.textContent = "Cheese Filled Bread Lv. " + upgrades.cfb.level;
+
+    cfbsprice.textContent = "$" + formatMoney(upgrades.cfbs.price);
+    cfbsname.textContent = "Cheese Filled Cheese Stick Lv. " + upgrades.cfbs.level;
+
+    cfgsprice.textContent = "$" + formatMoney(upgrades.cfgs.price);
+    cfgsname.textContent = "Cheese Filled Garlic Stick Lv. " + upgrades.cfgs.level;
+
+    ctailprice.textContent = "$" + formatMoney(upgrades.ctail.price);
+    ctailname.textContent = "Cinnabun Tail Lv. " + upgrades.ctail.level;
+
+    cfctprice.textContent = "$" + formatMoney(upgrades.cfct.price);
+    cfctname.textContent = "Creme Filled Cinnabun Tail Lv. " + upgrades.cfct.level;
+
+    brownieprice.textContent = "$" + formatMoney(upgrades.brownie.price);
+    browniename.textContent = "Brownie Lv. " + upgrades.brownie.level;
+
+    candybprice.textContent = "$" + formatMoney(upgrades.candyb.price);
+    candybname.textContent = "Candy Brownie Lv. " + upgrades.candyb.level;
+}
+
 function buyUpgrade(button, upgrade, priceLabel, nameLabel, baseName) {
     button.onclick = function () {
         if (count >= upgrade.price) {
@@ -222,10 +288,8 @@ function buyUpgrade(button, upgrade, priceLabel, nameLabel, baseName) {
 
             upgrade.price = Math.floor(upgrade.price * 1.5);
 
-            priceLabel.textContent = "$" + formatMoney(upgrade.price);
-            nameLabel.textContent = baseName + " lv. " + formatMoney(upgrade.level);
-
             updateDisplay();
+            updateUpgradeLabels();
         }
     };
 }
@@ -328,13 +392,6 @@ function loadGame() {
         updateDisplay();
         updateUpgradeLabels();
 }
-
-setInterval( () => {
-    if (!eventActive && Math.random() < 0.2) {
-        startEvent();
-    }
-}, 30000);
-
 
 let clicksNeeded = 50;
 let currentClicks = 0; 
@@ -534,130 +591,7 @@ document.getElementById("eventButton").onclick = () => {
     }
 };
 
-document.addEventListener("keydown", (e) => {
-    if (!chaseActive) return;
-
-    if (e.key === "ArrowUp") playerY -= speed;
-    if (e.key === "ArrowDown") playerY += speed;
-    if (e.key === "ArrowLeft") playerX -= speed;
-    if (e.key === "ArrowRight") playerX += speed;
-
-    updatePositions();
-    checkCatch();
-});
-
-let dx = 0;
-let dy = 0;
-
-if (chaseActive) {
-    dx = targetX - playerX;
-    dy = targetY - playerY;
-    const chaseGame = {
-    active: false,
-    playerX: 0,
-    playerY: 0,
-    targetX: 0,
-    targetY: 0,
-    speed: 5,
-    timeLeft: 10,
-    interval: null,
-
-    start() {
-        document.getElementById("target").style.display = "block";
-        document.getElementById("player").style.display = "none";
-        this.active = true;
-        this.timeLeft = 10;
-
-        this.targetX = Math.random() * 300;
-        this.targetY = Math.random() * 300;
-
-        this.updateTargetPosition();
-
-        this.interval = setInterval(() => {
-            this.timeLeft--;
-
-            if (this.timeLeft <= 0) {
-                this.fail();
-            }
-        }, 1000);
-    },
-
-    movePlayer(dx, dy) {
-        if (!this.active) return;
-
-        this.playerX += dx * this.speed;
-        this.playerY += dy * this.speed;
-
-        this.updatePlayerposition();
-        this.checkCatch();
-    },
-
-    checkCatch() {
-        const distance = Math.hypot(
-            this.playerX - this.targetX,
-            this.playerY - this.targetY
-        );
-
-        if (distance < 30) {
-            this.win();
-        }
-    },
-
-    win() {
-        this.stop();
-        count += 5000;
-        updateDisplay();
-        endChaseEvent();
-    },
-
-    fail() {
-        this.stop();
-        count = Math.max(0, count - 25000);
-        updateDisplay();
-        endChaseEvent();
-    },
-
-    stop() {
-        this.active = false;
-        clearInterval(this.interval);
-        document.getElementById("target").style.display = "none";
-        document.getElementById("player").style.display = "none";
-    },
-
-    updatePlayerPosition() {
-        const player = document.getElementById("player");
-        player.style.left = this.playerX + "px";
-        player.style.top = this.playerY + "px";
-    },
-
-    updateTargetPosition() {
-        const target = document.getElementById("target");
-        target.style.left = this.targetX + "px";
-        target.style.top = this.targetY + "px";
-    }
-};
-}
-
-if (chaseActive && Math.abs(dx) <10) {
-
-}
-
-targetX += Math.sign(dx) * 10;
-targetY += Math.sign(dy) * 10;
-
-playerX = Math.max(0, Math.min(360, playerX));
-playerY = Math.max(0, Math.min(260, playerY));
-
-setInterval( () => {
-    if (gamePaused || randomEventCooldown) return;
-
-    let chance = Math.random();
-
-    if (chance < 0.05) {
-        triggerChaseEvent();
-    }
-}, 2000);
-
 setInterval(saveGame, 5000);
 
 loadGame();
+updateUpgradeLabels();
